@@ -1,0 +1,65 @@
+SELECT * FROM VETERINARIO 
+WHERE ESPECIALIDADE = 'dermalogista'
+
+SELECT * FROM PACIENTE 
+WHERE IDADE BETWEEN 2 AND 5
+
+SELECT * FROM AGENDAMENTO 
+WHERE DATA_HORA BETWEEN '2024-01-01' AND '2024-03-31'
+
+SELECT * FROM MEDICAMENTOS 
+WHERE PRECO > 25
+
+SELECT * 
+	FROM RECEITA  
+   WHERE DATA_EMISSAO  > '2024-06-01'
+  	 AND ID_AGENDAMENTO = (SELECT ID_AGENDAMENTO
+  	 							FROM AGENDAMENTO 
+  								 WHERE id_veterinario = (SELECT id_veterinario
+  														   FROM VETERINARIO 
+  														  WHERE nome = 'Dr. Ana Souza'))
+  														  
+  														  
+
+SELECT PACIENTE.ID_PACIENTE, PACIENTE.NOME, PACIENTE.RACA FROM PACIENTE 
+WHERE PACIENTE.ID_TUTOR  = (SELECT	TUTOR.ID_TUTOR FROM TUTOR WHERE TUTOR.NOME = 'Maria Silva')
+
+
+SELECT * 
+	FROM ITENSRECEITA 
+   WHERE ID_ITEM_RECEITA  = (SELECT ID_MEDICAMENTO 
+  								 FROM medicamentos WHERE nome = 'Anti-inflamatório Y')
+
+SELECT * 
+	FROM AGENDAMENTO 
+    WHERE motivo = 'Exame de sangue' 
+	  AND id_veterinario = (SELECT id_veterinario 
+                      		FROM veterinario 
+                      		WHERE nome = 'Dr. Pedro Lima')
+                      		
+                      	
+SELECT * FROM MEDICAMENTOS
+WHERE DESCRICAO IS NOT NULL AND PRECO < 50 
+
+SELECT * FROM PACIENTE 
+WHERE PESO BETWEEN 3 AND 10
+
+SELECT * 
+FROM PACIENTE 
+WHERE ID_TUTOR = (SELECT ID_TUTOR 
+                  FROM TUTOR 
+                  WHERE NOME = 'Carlos Lima') 
+AND peso > 5
+
+
+SELECT * FROM PACIENTE 
+WHERE ESPECIE = 'Cão' AND PESO < 7
+
+SELECT * FROM PACIENTE 
+WHERE ID_PACIENTE NOT IN (SELECT ID_PACIENTE FROM AGENDAMENTO)
+
+SELECT * 
+FROM PACIENTE 
+WHERE ID_PACIENTE NOT IN (SELECT ID_PACIENTE 
+                          FROM AGENDAMENTO 
+                          WHERE DATA_HORA BETWEEN '2024-01-01' AND '2024-01-15')
